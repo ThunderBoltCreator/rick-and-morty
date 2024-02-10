@@ -5,6 +5,7 @@ import { useGetCharactersQuery } from 'entities/character'
 import { RenderError } from 'features/render-error'
 import { CharacterCard } from './character-card.tsx'
 import { FilterAndSort } from './filter-and-sort.tsx'
+import { useEffect } from 'react'
 
 export function Characters() {
   const [params, setParams] = useSearchParams({})
@@ -19,6 +20,16 @@ export function Characters() {
     page: Number(paramsData.currentPage),
   })
 
+  // мне не нравится это решение, фиксил баг
+  // если начинать поиск и будет найдено персонажей на меньшее колличество страниц чем номер той на которой я нахожусь то вылазит ошибка
+  // а найденные карточки на первых страницах
+  useEffect(() => {
+    if (paramsData.searchValue !== '' && paramsData.currentPage !== '1') {
+      params.set('page', '1')
+      setParams(params)
+    }
+  }, [paramsData.searchValue])
+
   if (isLoading) {
     return <h1>Loading...</h1>
   }
@@ -30,12 +41,12 @@ export function Characters() {
 
   const changeSearchName = (name: string) => {
     params.set('name', name)
-    setParams(params)
 
     if (!name) {
       params.delete('name')
-      setParams(params)
     }
+
+    setParams(params)
   }
 
   return (

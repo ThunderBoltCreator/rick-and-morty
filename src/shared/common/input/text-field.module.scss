@@ -56,12 +56,8 @@ label.leftIcon {
     color: var(--color-dark-100);
   }
 
-  &[type='search'] {
+  &.withLeftIcon {
     padding-left: 41px;
-  }
-
-  &[type='password'] {
-    padding-right: 41px;
   }
 
   &:hover {

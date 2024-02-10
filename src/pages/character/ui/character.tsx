@@ -50,7 +50,9 @@ export function Character() {
           <ul className={s.episodeList}>
             {data.episode.map((episode, index) => (
               <li key={index}>
-                <a href={episode}>{index}</a>
+                <a target={'_blank'} href={episode}>
+                  {index}
+                </a>
               </li>
             ))}
           </ul>

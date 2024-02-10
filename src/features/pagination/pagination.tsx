@@ -3,6 +3,7 @@ import { usePagination, UsePaginationProps } from './usePagination'
 import s from './pagination.module.scss'
 import { clsx } from 'clsx'
 import ChevronLeftIcon from 'shared/icons/chevron-left-icon.tsx'
+import { Typography } from 'shared/common/typography'
 
 type PaginationProps = {
   paginationInfo: UsePaginationProps
@@ -18,7 +19,11 @@ export function Pagination({ paginationInfo, onChangePage, className }: Paginati
     root: clsx(s.pagination, paginationInfo.disabled ? s.disabled : '', className),
     itemActive: clsx(s.item, s.active),
     item: clsx(s.item),
-    buttonNext: clsx(s.arrow, s.nextPage),
+    buttonNext: clsx(
+      s.arrow,
+      s.nextPage,
+      paginationInfo.currentPage === paginationInfo.totalPageCount ? s.disabled : ''
+    ),
   }
 
   const onClickPrev = () => {
@@ -27,6 +32,9 @@ export function Pagination({ paginationInfo, onChangePage, className }: Paginati
   const onClickNext = () => {
     onChangePage(paginationInfo.currentPage + 1)
   }
+
+  console.log('paginationInfo.totalPageCount', paginationInfo.totalPageCount)
+  console.log('paginationInfo.currentPage', paginationInfo.currentPage)
 
   return (
     <div className={styles.root}>
@@ -40,17 +48,17 @@ export function Pagination({ paginationInfo, onChangePage, className }: Paginati
       {pagination?.map((el, i) => {
         if (typeof el === 'string') {
           return (
-            <span className={styles.dots} key={i}>
+            <Typography as={'span'} className={styles.dots} key={i}>
               {el}
-            </span>
+            </Typography>
           )
         }
 
         if (el === paginationInfo.currentPage) {
           return (
-            <span className={styles.itemActive} key={i}>
+            <Typography as={'span'} className={styles.itemActive} key={i}>
               {el}
-            </span>
+            </Typography>
           )
         }
 
@@ -61,7 +69,7 @@ export function Pagination({ paginationInfo, onChangePage, className }: Paginati
             key={i}
             onClick={() => onChangePage(el)}
           >
-            <span>{el}</span>
+            <Typography as={'span'}>{el}</Typography>
           </button>
         )
       })}

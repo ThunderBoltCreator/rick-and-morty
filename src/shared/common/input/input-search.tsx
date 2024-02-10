@@ -48,7 +48,6 @@ export function SearchField({ onButtonClick, onValueChange, value, ...props }: S
       leftIcon={value ? SearchIconButton : SearchIconLabel}
       onChange={onChangeField}
       rightIcon={value ? ClearInputIcon : null}
-      type={'search'}
       value={inputValue}
       {...props}
     />

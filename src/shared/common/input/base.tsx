@@ -21,7 +21,7 @@ export const BaseField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     const styles = {
       errorMessage: clsx(s.errorMessage),
-      input: clsx(s.input, errorMessage && s.error),
+      input: clsx(s.input, errorMessage && s.error, leftIcon && s.withLeftIcon),
       inputWrapper: clsx(s.wrapper),
       leftIcon: clsx(s.icon, s.leftIcon, errorMessage && s.error),
       rightIcon: clsx(s.icon, s.rightIcon, errorMessage && s.error),
